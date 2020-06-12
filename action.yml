@@ -1,7 +1,5 @@
 name: vulkan-ci
 description: Install the vulkan loader, swiftshader, and khronos validation layer
-inputs:
-outputs:
 runs:
   using: 'node12'
   main: 'index.js'
