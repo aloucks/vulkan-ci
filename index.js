@@ -72,7 +72,8 @@ async function downloadAndInstall(archive_url, archive_filename, libraries) {
     await exec.exec("sudo rm -rf " + tmpDir + "/vulkan");
 }
 
-async function downloadAndInstallWindows(archive_url, archive_filename) {    
+async function downloadAndInstallWindows(archive_url, archive_filename) {
+    console.log(archive_url);
     let tmpDir = os.tmpdir();
     await download(archive_url, tmpDir);
     exec.exec("7z", ["x", "-y", archive_filename], {cwd: tmpDir});
