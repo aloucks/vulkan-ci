@@ -20,7 +20,7 @@ const LINUX_LIBS = [
 ];
 
 
-const MACOS_ARCHIVE_FILENAME = "vk-ci-linux-amd64.tar.gz";
+const MACOS_ARCHIVE_FILENAME = "vk-ci-macos-amd64.tar.gz";
 const MACOS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/v0.0.0-3/vk-ci-macos-amd64.tar.gz";
 const MACOS_LIBS = [
     "vulkan/libvulkan.dylib",
