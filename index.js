@@ -1,5 +1,3 @@
-// ncc build index.js
-
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 const os = require('os');
