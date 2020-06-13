@@ -1,8 +1,9 @@
 [package]
-name = "example"
+name = "test"
 version = "0.1.0"
 authors = ["Aaron Loucks <aloucks@cofront.net>"]
 edition = "2018"
+publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
