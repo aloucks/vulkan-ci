@@ -6,11 +6,13 @@ const io = require('@actions/io');
 const os = require('os');
 const download = require('download');
 
-const WINDOWS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/v0.0.0-3/vk-ci-windows-amd64.zip";
+const DOWNLOAD_TAG = "v0.0.0-3";
+
 const WINDOWS_ARCHIVE_FILENAME = "vk-ci-windows-amd64.zip";
+const WINDOWS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/" + DOWNLOAD_TAG + "/" + WINDOWS_ARCHIVE_FILENAME;
 
 const LINUX_ARCHIVE_FILENAME = "vk-ci-linux-amd64.tar.gz";
-const LINUX_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/v0.0.0-3/vk-ci-linux-amd64.tar.gz";
+const LINUX_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/" + DOWNLOAD_TAG + "/" + LINUX_ARCHIVE_FILENAME;
 const LINUX_LIBS = [
     "vulkan/libvulkan.so",
     "vulkan/libvulkan.so.1",
@@ -21,10 +23,10 @@ const LINUX_LIBS = [
 
 
 const MACOS_ARCHIVE_FILENAME = "vk-ci-macos-amd64.tar.gz";
-const MACOS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/v0.0.0-3/vk-ci-macos-amd64.tar.gz";
+const MACOS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/" + DOWNLOAD_TAG + "/" + MACOS_ARCHIVE_FILENAME;
 const MACOS_LIBS = [
     "vulkan/libvulkan.dylib",
-    "vulkan/libvulkan.dylib.1",
+    "vulkan/libvulkan.1.dylib",
     "vulkan/libvulkan....dylib",
     "vulkan/driver/libvk_swiftshader.dylib",
     "vulkan/layers/libVkLayer_khronos_validation.dylib"    
