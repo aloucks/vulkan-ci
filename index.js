@@ -62,7 +62,11 @@ async function downloadAndInstall(archive_url, archive_filename, libraries) {
     }
     await exec.exec("sudo mv " + tmpDir + "/vulkan/layers/VkLayer_khronos_validation.json /usr/local/share/vulkan/explicit_layer.d");
     await exec.exec("sudo mv " + tmpDir + "/vulkan/driver/vk_swiftshader_icd.json /usr/local/share/vulkan/icd.d");
-    await exec.exec("sudo ln -fs /usr/local/lib/libvk_swiftshader.* /usr/local/share/vulkan/icd.d");
+    if (process.platform == "darwin") {
+        await exec.exec("sudo ln -fs /usr/local/lib/libvk_swiftshader.dylib /usr/local/share/vulkan/icd.d");
+    } else {
+        await exec.exec("sudo ln -fs /usr/local/lib/libvk_swiftshader.so /usr/local/share/vulkan/icd.d");
+    }
     await exec.exec("sudo ldconfig");
     await exec.exec("sudo rm -rf " + tmpDir + "/vulkan");
 }
