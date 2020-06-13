@@ -14,7 +14,7 @@ const LINUX_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/
 const LINUX_LIBS = [
     "vulkan/libvulkan.so",
     "vulkan/libvulkan.so.1",
-    "vulkan/libvulkan...",
+    "vulkan/libvulkan.so...",
     "vulkan/driver/libvk_swiftshader.so",
     "vulkan/layers/libVkLayer_khronos_validation.so"
 ];
@@ -54,14 +54,17 @@ if (require.main === module) {
 async function downloadAndInstall(archive_url, archive_filename, libraries) {    
     let tmpDir = os.tmpdir();
     await download(archive_url, tmpDir);
-    await exec.exec("tar", ["-zvxf", archive_filename], {"cwd": tmpDir});
+    await exec.exec("sudo tar", ["-zvxf", archive_filename], {"cwd": tmpDir});
+    await exec.exec("sudo mkdir -p /usr/local/share/vulkan/explicit_layer.d");
+    await exec.exec("sudo mkdir -p /usr/local/share/vulkan/icd.d");
     for (i in libraries) {
-        await io.mv(tmpDir + "/" + libraries[i], "/usr/local/lib/");
+        await exec.exec("sudo mv " + tmpDir + "/" + libraries[i], "/usr/local/lib");
     }
-    await io.mkdirP("/usr/local/share/vulkan/explicit_layer.d");
-    await io.mkdirP("/usr/local/share/vulkan/icd.d");
-    await io.mv(tmpDir + "/vulkan/layers/VkLayer_khronos_validation.json", "/usr/local/share/vulkan/explicit_layer.d/VkLayer_khronos_validation.json");
-    await io.mv(tmpDir + "/vulkan/drivers/vk_swiftshader_icd.json", "/usr/local/share/vulkan/icd.d/vk_swiftshader_icd.json"); 
+    await exec.exec("sudo mv " + tmpDir + "/vulkan/layers/VkLayer_khronos_validation.json /usr/local/share/vulkan/explicit_layer.d");
+    await exec.exec("sudo mv " + tmpDir + "/vulkan/driver/vk_swiftshader_icd.json /usr/local/share/vulkan/icd.d");
+    await exec.exec("sudo ln -fs /usr/local/lib/libvk_swiftshader.* /usr/local/share/vulkan/icd.d");
+    await exec.exec("sudo ldconfig");
+    await exec.exec("sudo rm -rf " + tmpDir + "/vulkan");
 }
 
 async function downloadAndInstallWindows(archive_url, archive_filename) {    
