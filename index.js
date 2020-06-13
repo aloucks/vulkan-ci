@@ -3,7 +3,7 @@ const exec = require('@actions/exec');
 const os = require('os');
 const download = require('download');
 
-const DOWNLOAD_TAG = "v0.0.0-4";
+const DOWNLOAD_TAG = "v0.1.0";
 
 const WINDOWS_ARCHIVE_FILENAME = "vk-ci-windows-amd64.zip";
 const WINDOWS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/" + DOWNLOAD_TAG + "/" + WINDOWS_ARCHIVE_FILENAME;
