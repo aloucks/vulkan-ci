@@ -18,6 +18,6 @@ jobs:
 
     - uses: aloucks/vulkan-ci@master
 
-    - run: cargo test --manifest-path=example/Cargo.toml -- --nocapture
+    - run: cargo test --manifest-path=test/Cargo.toml -- --nocapture
       env:
         VK_DEBUG_LOADER: all

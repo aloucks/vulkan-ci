@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint index.js",
+    "package": "ncc build index.js -o dist",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,13 @@
     "@actions/exec": "^1.0.4",
     "@actions/io": "^1.0.2",
     "download": "^8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
   }
 }
