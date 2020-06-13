@@ -2,7 +2,6 @@
 
 const core = require('@actions/core');
 const exec = require('@actions/exec');
-const io = require('@actions/io');
 const os = require('os');
 const download = require('download');
 
@@ -20,7 +19,6 @@ const LINUX_LIBS = [
     "vulkan/driver/libvk_swiftshader.so",
     "vulkan/layers/libVkLayer_khronos_validation.so"
 ];
-
 
 const MACOS_ARCHIVE_FILENAME = "vk-ci-macos-amd64.tar.gz";
 const MACOS_ARCHIVE_URL = "https://github.com/aloucks/vk-test/releases/download/" + DOWNLOAD_TAG + "/" + MACOS_ARCHIVE_FILENAME;
@@ -68,8 +66,8 @@ async function downloadAndInstall(archive_url, archive_filename, libraries) {
         await exec.exec("sudo ln -fs /usr/local/lib/libvk_swiftshader.dylib /usr/local/share/vulkan/icd.d");
     } else {
         await exec.exec("sudo ln -fs /usr/local/lib/libvk_swiftshader.so /usr/local/share/vulkan/icd.d");
+        await exec.exec("sudo ldconfig");
     }
-    await exec.exec("sudo ldconfig");
     await exec.exec("sudo rm -rf " + tmpDir + "/vulkan");
 }
 
