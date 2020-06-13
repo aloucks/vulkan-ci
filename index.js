@@ -54,6 +54,7 @@ if (require.main === module) {
 async function downloadAndInstall(archive_url, archive_filename, libraries) {
     console.log(archive_filename);
     console.log(archive_url);
+    
     let tmpDir = os.tmpdir();
     await download(archive_url, tmpDir);
     await exec.exec("sudo tar", ["-zvxf", archive_filename], {"cwd": tmpDir});
