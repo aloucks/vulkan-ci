@@ -20,4 +20,4 @@ jobs:
 
     - run: cargo test --manifest-path=test/Cargo.toml -- --nocapture
       env:
-        VK_DEBUG_LOADER: all
+        VK_LOADER_DEBUG: all
