@@ -11,6 +11,17 @@ fn get_physical_devices(
     // Initializes the vulkan loader library
     let entry = Entry::new()?;
 
+    for ext_prop in entry.enumerate_instance_extension_properties()? {
+        let name =
+            unsafe { std::ffi::CStr::from_ptr(ext_prop.extension_name.as_ptr() as *const _) };
+        println!("found instance extension: {}", name.to_string_lossy());
+    }
+
+    for layer_prop in entry.enumerate_instance_layer_properties()? {
+        let name = unsafe { std::ffi::CStr::from_ptr(layer_prop.layer_name.as_ptr() as *const _) };
+        println!("found instance layer: {}", name.to_string_lossy());
+    }
+
     // Request the validation layer with the instance creation parameters
     let layer_name =
         concat!("VK_LAYER_KHRONOS_validation", "\0").as_ptr() as *const std::os::raw::c_char;
