@@ -1,5 +1,7 @@
 # vulkan-ci
 
+![Test](https://github.com/aloucks/vulkan-ci/workflows/Test/badge.svg)
+
 Enables vulkan application testing by installing pre-built binaries of the [vulkan loader library], 
 [validation layers], and the [swiftshader] software driver.
 
