@@ -1,4 +1,4 @@
-use ash::{version::EntryV1_0, version::InstanceV1_0, vk, Entry};
+use ash::{vk, Entry};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let devices = get_physical_devices()?;
@@ -9,14 +9,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 fn get_physical_devices(
 ) -> Result<Vec<(String, vk::PhysicalDeviceType, Version)>, Box<dyn std::error::Error>> {
     // Initializes the vulkan loader library
-    let entry = Entry::new()?;
+    let entry = unsafe { Entry::new()? };
 
     // Request the validation layer with the instance creation parameters
     let layer_name =
         concat!("VK_LAYER_KHRONOS_validation", "\0").as_ptr() as *const std::os::raw::c_char;
     let layer_names = vec![layer_name];
     let app_info = vk::ApplicationInfo {
-        api_version: vk::make_version(1, 0, 0),
+        api_version: vk::make_api_version(1, 0, 0, 0),
         ..Default::default()
     };
     let create_info = vk::InstanceCreateInfo::builder()
@@ -36,9 +36,9 @@ fn get_physical_devices(
                     .to_string_lossy()
                     .to_string();
                 let version = Version {
-                    major: vk::version_major(properties.api_version),
-                    minor: vk::version_minor(properties.api_version),
-                    patch: vk::version_patch(properties.api_version),
+                    major: vk::api_version_major(properties.api_version),
+                    minor: vk::api_version_minor(properties.api_version),
+                    patch: vk::api_version_patch(properties.api_version),
                 };
                 (name, properties.device_type, version)
             })
@@ -48,10 +48,10 @@ fn get_physical_devices(
 }
 
 #[derive(Debug, Copy, Clone)]
-struct Version {
-    major: u32,
-    minor: u32,
-    patch: u32,
+pub struct Version {
+    pub major: u32,
+    pub minor: u32,
+    pub patch: u32,
 }
 
 #[test]
